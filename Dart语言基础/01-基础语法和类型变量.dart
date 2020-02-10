@@ -1,4 +1,4 @@
-main() {
+void main() {
   print('Welcome to learn DART');
   // // 数值类型 num
   // // 只有两种子类： 64位int、符合ieee754标准的64位double

@@ -2,7 +2,7 @@ printStr(String str) {
   print('Hello everyone, this is $str.');
 }
 
-main() {
+void main() {
   var str = 'Flutter';
   printStr(str);
 }
