@@ -7,7 +7,7 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      title: 'Flutter Demo',
+      title: 'Navigation',
       theme: ThemeData(
         // This is the theme of your application.
         primarySwatch: Colors.blue,
@@ -16,98 +16,106 @@ class MyApp extends StatelessWidget {
       // 我们可以先给路由起一个名字，然后就可以通过路由名字直接打开新的路由
       // 注册路由表,就是给路由起名字
       routes: {
-        "new_page": (context) => NewRoute(),
-        "new_page":(context) => EchoRoute(),
-        "/": (context) => MyHomePage(title: 'Flutter demo首页'), // 注册首页路由
+        'second_page': (context) => SecondPage(),
+        'third_page': (context) => ThirdPage(),
       },
-      // home: MyHomePage(title: 'Flutter demo首页'),
+      // 路由页面异常页
+      onUnknownRoute: (RouteSettings setting) => MaterialPageRoute(builder: (context) => UnknownPage()),
+      home: FirstPage(),
     );
   }
 }
 
-class MyHomePage extends StatefulWidget {
-  MyHomePage({Key key, this.title}) : super(key: key);
-  final String title;
-
+class FirstPage extends StatefulWidget {
   @override
-  _MyHomePageState createState() => _MyHomePageState();
+  State<StatefulWidget> createState() => _FirstPageState();
 }
 
-class _MyHomePageState extends State<MyHomePage> {
-  int _counter = 0;
-
-  void _incrementCounter() {
-    setState(() {
-      _counter++;
-    });
-  }
+class _FirstPageState extends State<FirstPage> {
+  String _msg = '';
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(
-        title: Text(widget.title),
+    return new Scaffold(
+      appBar: new AppBar(
+        title: new Text('First Page')
       ),
-      body: Center(
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: <Widget>[
-            Text(
-              '你点击按钮的次数为:',
-            ),
-            Text(
-              '$_counter',
-              style: Theme.of(context).textTheme.display1,
-            ),
-            FlatButton(
-              onPressed: () {
-                // 导航到新路由
-                // Navigator.pushNamed(context, 'new_page');
-                Navigator.of(context).pushNamed('new_page', arguments: 'hi');
-                // Navigator.push(context, 
-                //   MaterialPageRoute(builder: (context) {
-                //     return NewRoute();
-                //   })
-                // );
-              },
-              child: Text('打开新的route'),
-              textColor: Colors.red, // 字体颜色设置为红色
-            ),
-          ],
+      body: Column(children: <Widget>[
+        RaisedButton(
+          child: Text('基本路由(跳转到SecondPage)'),
+          onPressed: () => Navigator.push(context, MaterialPageRoute(builder: (context) => SecondPage())),
         ),
+        RaisedButton(
+            child: Text('命名路由(跳转到SecondPage)'),
+            onPressed: () => Navigator.pushNamed(context, 'second_page')
+        ),
+        RaisedButton(
+            child: Text('命名路由（参数&回调）(跳转到ThirdPage)'),
+            onPressed: () => Navigator.pushNamed(context, 'third_page', arguments: 'Hey').then((msg) {
+              setState(() {
+                _msg = msg;
+              });
+            }),
+        ),
+        Text('信息来自Second Page: $_msg'),
+        RaisedButton(
+            child: Text('命名路由异常处理(跳转到UnknownPage)'),
+            onPressed: () => Navigator.pushNamed(context,'unknown_page')
+        )
+      ],),
+    );
+  }
+}
+
+class SecondPage extends StatelessWidget {
+  @override
+  Widget build(BuildContext context) {
+    return new Scaffold(
+      appBar: new AppBar(
+        title: new Text('Second Page'),
       ),
-      floatingActionButton: FloatingActionButton(
-        onPressed: _incrementCounter,
-        tooltip: 'Increment',
-        child: Icon(Icons.add),
+      body: RaisedButton(
+          child: Text('返回First Page'),
+          onPressed: () => Navigator.pop(context)
       ),
     );
   }
 }
 
-// 创建一个新路由，命名为"NewRoute"
-class NewRoute extends StatelessWidget {
+class UnknownPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
+    return new Scaffold(
+      appBar: new AppBar(
+        title: new Text('Unknown Page'),
+      ),
+      body: RaisedButton(
+          child: Text('返回'),
+          onPressed: ()=> Navigator.pop(context)
+      ),
+    );
+  }
+}
+
+class ThirdPage extends StatelessWidget {
+
+  @override
+  Widget build(BuildContext context) {
+    String msg = ModalRoute.of(context).settings.arguments as String;
+
+    return  Scaffold(
       appBar: AppBar(
-        title: Text('New Route'),
+        title: Text('Third Page'),
       ),
-      body: Center(
-        child: Text('这是新的页面 this is new route'),
+      body: Column(
+        children: <Widget>[
+          Text('信息来自First Page: $msg'),
+          RaisedButton(
+              child: Text('back'),
+              onPressed: ()=> Navigator.pop(context, 'Hi')
+          )
+        ],
       ),
-    );
-  }
-}
-
-// 在路由页通过RouteSetting对象获取路由参数：
-class EchoRoute extends StatelessWidget {
-  @override
-  Widget build(BuildContext context) {
-    // 获取路由参数
-    var args = ModalRoute.of(context).settings.arguments;
-    return Container(
-      child: Text('$args'),
     );
   }
 }
