@@ -69,9 +69,9 @@ Element 同时持有 Widget 和 RenderObject。而无论是 Widget 还是 Elemen
 Widget有两种类型：
 
 - StatelessWidget （无状态组件）
-  - StatefulWidget 应对有交互、需要动态变化视觉效果的场景
-- StatefulWidget（有状态组件）
   - StatelessWidget 则用于处理静态的、无状态的视图展示
+- StatefulWidget（有状态组件）
+  - StatefulWidget 应对有交互、需要动态变化视觉效果的场景
 
 > StatelessWidget 不带绑定状态，而 StatefulWidget 带绑定状态。当你所要构建的用户界面不随任何状态信息的变化而变化时，需要选择使用 StatelessWidget，反之则选用 StatefulWidget。前者一般用于静态内容的展示，而后者则用于存在交互反馈的内容呈现中。Widget 是不可变的，更新则意味着销毁 + 重建（build）。StatefulWidget不是万金油，正确评估你的视图展示需求，避免无谓的 StatefulWidget 使用，是提高 Flutter 应用渲染性能最简单也是最直接的手段
 
