@@ -10,7 +10,7 @@ class MyApp extends StatelessWidget {
       title: 'Navigation',
       theme: ThemeData(
         // This is the theme of your application.
-        primarySwatch: Colors.blue,
+        primarySwatch: Colors.orange,
       ),
       // 命名路由（Named Route）即有名字的路由
       // 我们可以先给路由起一个名字，然后就可以通过路由名字直接打开新的路由
@@ -46,8 +46,8 @@ class _FirstPageState extends State<FirstPage> {
           onPressed: () => Navigator.push(context, MaterialPageRoute(builder: (context) => SecondPage())),
         ),
         RaisedButton(
-            child: Text('命名路由(跳转到SecondPage)'),
-            onPressed: () => Navigator.pushNamed(context, 'second_page')
+          child: Text('命名路由(跳转到SecondPage)'),
+          onPressed: () => Navigator.pushNamed(context, 'second_page')
         ),
         RaisedButton(
             child: Text('命名路由（参数&回调）(跳转到ThirdPage)'),
@@ -59,8 +59,8 @@ class _FirstPageState extends State<FirstPage> {
         ),
         Text('信息来自Second Page: $_msg'),
         RaisedButton(
-            child: Text('命名路由异常处理(跳转到UnknownPage)'),
-            onPressed: () => Navigator.pushNamed(context,'unknown_page')
+          child: Text('命名路由异常处理(跳转到UnknownPage)'),
+          onPressed: () => Navigator.pushNamed(context, 'unknown_page')
         )
       ],),
     );
@@ -111,8 +111,8 @@ class ThirdPage extends StatelessWidget {
         children: <Widget>[
           Text('信息来自First Page: $msg'),
           RaisedButton(
-              child: Text('back'),
-              onPressed: ()=> Navigator.pop(context, 'Hi')
+            child: Text('back'),
+            onPressed: () => Navigator.pop(context, 'Hi')
           )
         ],
       ),

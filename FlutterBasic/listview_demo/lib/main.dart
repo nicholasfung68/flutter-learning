@@ -62,8 +62,9 @@ class ParallelWidget extends StatelessWidget {
         title: Text('CustomScrollView demo'), // 标题
         floating: true, // 设置悬浮样式
         flexibleSpace: Image.network(
-            'https://media-cdn.tripadvisor.com/media/photo-s/13/98/8f/c2/great-wall-hiking-tours.jpg',
-            fit: BoxFit.cover), // 设置悬浮头像背景
+          'https://media-cdn.tripadvisor.com/media/photo-s/13/98/8f/c2/great-wall-hiking-tours.jpg',
+          fit: BoxFit.cover
+        ), // 设置悬浮头像背景
         expandedHeight: 280, // 头控件高度
       ),
       SliverList(
@@ -145,14 +146,18 @@ class _ScrollControllerState extends State<ScrollControllerWidget> {
       body: Column(
         children: <Widget>[
           Container(
+            margin: EdgeInsets.all(10.0),
             height: 40.0,
             child: RaisedButton(
                 onPressed: (isToTop
                     ? () {
                         if (isToTop) {
-                          _controller.animateTo(.0,
-                              duration: Duration(milliseconds: 200),
-                              curve: Curves.ease); // 做一个滚动到顶部的动画
+                          // 做一个滚动到顶部的动画
+                          _controller.animateTo(
+                              .0,
+                              duration: Duration(milliseconds: 2000),
+                              curve: Curves.ease,
+                          );
                         }
                       }
                     : null),
@@ -161,7 +166,7 @@ class _ScrollControllerState extends State<ScrollControllerWidget> {
           Expanded(
             child: ListView.builder(
               controller: _controller,
-              itemCount: 30,
+              itemCount: 50,
               itemBuilder: (context, index) =>
                   ListTile(title: Text('Index : $index')), // 列表项构造方法
             ),

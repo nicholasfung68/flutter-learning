@@ -93,10 +93,10 @@ class UpdatedItemWidget extends StatelessWidget {
   Widget build(BuildContext context) {
     // 组合上下两部分
     return Column(
-        children: <Widget>[
-          buildTopRow(context),
-          buildBottomRow(context)
-        ]);
+      children: <Widget>[
+        buildTopRow(context),
+        buildBottomRow(context)
+      ]);
   }
 
   // 创建上半部分
