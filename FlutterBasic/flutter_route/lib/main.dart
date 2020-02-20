@@ -37,32 +37,30 @@ class _FirstPageState extends State<FirstPage> {
   @override
   Widget build(BuildContext context) {
     return new Scaffold(
-      appBar: new AppBar(
-        title: new Text('First Page')
-      ),
-      body: Column(children: <Widget>[
-        RaisedButton(
-          child: Text('基本路由(跳转到SecondPage)'),
-          onPressed: () => Navigator.push(context, MaterialPageRoute(builder: (context) => SecondPage())),
-        ),
-        RaisedButton(
-          child: Text('命名路由(跳转到SecondPage)'),
-          onPressed: () => Navigator.pushNamed(context, 'second_page')
-        ),
-        RaisedButton(
+      appBar: new AppBar(title: new Text('First Page')),
+      body: Column(
+        children: <Widget>[
+          RaisedButton(
+            child: Text('基本路由(跳转到SecondPage)'),
+            onPressed: () => Navigator.push(context, MaterialPageRoute(builder: (context) => SecondPage())),
+          ),
+          RaisedButton(
+            child: Text('命名路由(跳转到SecondPage)'),
+            onPressed: () => Navigator.pushNamed(context, 'second_page')),
+          RaisedButton(
             child: Text('命名路由（参数&回调）(跳转到ThirdPage)'),
             onPressed: () => Navigator.pushNamed(context, 'third_page', arguments: 'Hey').then((msg) {
               setState(() {
                 _msg = msg;
               });
             }),
-        ),
-        Text('信息来自Second Page: $_msg'),
-        RaisedButton(
-          child: Text('命名路由异常处理(跳转到UnknownPage)'),
-          onPressed: () => Navigator.pushNamed(context, 'unknown_page')
-        )
-      ],),
+          ),
+          Text('信息来自Second Page: $_msg'),
+          RaisedButton(
+            child: Text('命名路由异常处理(跳转到UnknownPage)'),
+            onPressed: () => Navigator.pushNamed(context, 'unknown_page'))
+        ],
+      ),
     );
   }
 }
@@ -75,9 +73,7 @@ class SecondPage extends StatelessWidget {
         title: new Text('Second Page'),
       ),
       body: RaisedButton(
-          child: Text('返回First Page'),
-          onPressed: () => Navigator.pop(context)
-      ),
+        child: Text('返回First Page'), onPressed: () => Navigator.pop(context)),
     );
   }
 }
@@ -90,20 +86,17 @@ class UnknownPage extends StatelessWidget {
         title: new Text('Unknown Page'),
       ),
       body: RaisedButton(
-          child: Text('返回'),
-          onPressed: ()=> Navigator.pop(context)
-      ),
+        child: Text('返回'), onPressed: () => Navigator.pop(context)),
     );
   }
 }
 
 class ThirdPage extends StatelessWidget {
-
   @override
   Widget build(BuildContext context) {
     String msg = ModalRoute.of(context).settings.arguments as String;
 
-    return  Scaffold(
+    return Scaffold(
       appBar: AppBar(
         title: Text('Third Page'),
       ),
@@ -112,8 +105,7 @@ class ThirdPage extends StatelessWidget {
           Text('信息来自First Page: $msg'),
           RaisedButton(
             child: Text('back'),
-            onPressed: () => Navigator.pop(context, 'Hi')
-          )
+            onPressed: () => Navigator.pop(context, 'Hi'))
         ],
       ),
     );
